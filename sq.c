@@ -18,6 +18,7 @@ void output(int QoS, float sol_1, float sol_2);
 @param a,  b, ccoefficients of the quadratic equation in descending order of degree
 @param *sol pointer to an array for solutions
 @return Returns the number of solutions
+@throw If the number of solutions is infinite, it returns -1
 */
 int decision(float a, float b, float c, float sol[2]);
 
@@ -46,6 +47,10 @@ void output(int QoS, float sol_1, float sol_2)
     {
         printf("%f\n%f", sol_1, sol_2);
     }
+    else if (QoS == -1)
+    {
+        printf(All real numbers");
+    }
 }
 
 int decision(float a, float b, float c, float *sol)
@@ -55,8 +60,15 @@ int decision(float a, float b, float c, float *sol)
     // in the case of a linear equation
     if (abs(a) < accuracy)
     {
-        sol[0] = -c/b;
-        return 1;
+        if (abs(b) > accuracy)
+        {
+            sol[0] = -c/b;
+            return 1;
+        }
+        else if ((abs(c) < accuracy) && (abs(c) < accuracy))
+            return -1;
+        else
+            return 0;
     }
     // solving a linear equation with a discriminant
     float D = b*b - 4*a*c;
