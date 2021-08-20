@@ -65,7 +65,7 @@ int decision(float a, float b, float c, float *sol)
             sol[0] = -c/b;
             return 1;
         }
-        else if ((abs(c) < accuracy) && (abs(c) < accuracy))
+        else if ((abs(c) < accuracy) && (abs(b) < accuracy))
             return -1;
         else
             return 0;
