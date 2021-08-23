@@ -1,4 +1,4 @@
-/*#include <stdio.h>
+#include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include <errno.h>
@@ -45,4 +45,4 @@ int main()
     getchar();
     return 0;
 }
-*/
+
