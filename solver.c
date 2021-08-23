@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#define NDEBUG
 #include <assert.h>
 #include <errno.h>
 #include "solver.h"
@@ -38,7 +39,7 @@ int solveQuad(float a, float b, float c, float *sol)
     	return SOL_ERR;
     }
     
-    bool corr_data = ! ( (isnan(a) || isinff(a)) || (isnan(b) || isinff(b)) || (isnan(c) || isinff(c)) );
+    bool corr_data = ! ( (isnan(a) || isinf(a)) || (isnan(b) || isinf(b)) || (isnan(c) || isinf(c)) );
     assert(corr_data);
     if (! corr_data)
     {
@@ -47,24 +48,32 @@ int solveQuad(float a, float b, float c, float *sol)
 	}
     
     // in the case of a linear equation
-    if (abs(a) < ACCURACY)
+    if (isZero(a))
     {
-        if (abs(b) > ACCURACY)
+        if (!isZero(b))
         {
             sol[0] = -c/b;
             return 1;
         }
-        else if ((abs(c) < ACCURACY) && (abs(b) < ACCURACY))
+        else if (isZero(c) && isZero(b))
             return INF_SOLS;
         else
             return 0;
     }
     // solving a quadratic equation with a discriminant
     float D = b*b - 4*a*c;
-    assert(!isinff(D));
+    
+    bool corrD = !isinf(D);
+    assert(corrD);
+    if (! corrD)
+    {
+    	errno = ERANGE;
+    	return SOL_ERR;
+	}
+	
     if (D < 0)
         return 0;
-    else if (abs(D) < ACCURACY)
+    else if (isZero(D))
     {
         sol[0] = -b / (2*a);
         return 1;
@@ -72,8 +81,13 @@ int solveQuad(float a, float b, float c, float *sol)
     else
     {
     	float sD = sqrtf(D);
-        sol[0] = (-b + sD) / (2*a);
-        sol[1] = (-b - sD) / (2*a);
+        sol[0] = (-b - sD) / (2*a);
+        sol[1] = (-b + sD) / (2*a);
         return 2;
     }
+}
+
+int isZero(float nmb)
+{
+	return abs(nmb) < ACCURACY;
 }

@@ -18,8 +18,17 @@ void output(int QoS, float sol_1, float sol_2);
 @note If the number of solutions is infinite, it returns -1
 @noet EDOM is error domain
 @note EFAULT is error of bad adress 
+@note ERANGE is error of result out of range
 */
 int solveQuad(float a, float b, float c, float sol[2]);
+
+/*
+@brief This function checks whether the number is zero
+@param nmb is the number being compared
+@return True if the number is zero, false in other cases
+@note Any number less than the ACCURACY is considered zero
+*/
+int isZero(float nmb);
 
 #endif
 

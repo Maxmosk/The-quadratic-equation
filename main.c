@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <math.h>
 #include <assert.h>
 #include <errno.h>
@@ -7,12 +7,13 @@
 #define SOL_ERR -2
 #define ACCURACY 0.001
 #define bool int
+#define NaN sqrt(-1)
 
 int main()
 {
     // input of initial data
     printf("Enter the coefficients of the quadratic equation\n");
-    float a=0, b=0, c=0;
+    float a=NaN, b=NaN, c=NaN;
     int QoN=0;
     QoN = scanf("%f%f%f", &a, &b, &c);
     if (QoN != 3)
@@ -34,6 +35,9 @@ int main()
     		case EFAULT:
     			printf("Bad adress");
     			break;
+    		case ERANGE:
+    			printf("Error range");
+    			break;
 		}
 	}
 	
@@ -41,4 +45,4 @@ int main()
     getchar();
     return 0;
 }
-
+*/
