@@ -30,5 +30,12 @@ int solveQuad(float a, float b, float c, float sol[2]);
 */
 int isZero(float nmb);
 
+/*
+@brief This function return description of error
+@param e_no is value of errno
+@return Text string with description of error
+*/
+char* get_err_codes(int e_no);
+
 #endif
 

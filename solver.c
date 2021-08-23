@@ -91,3 +91,19 @@ int isZero(float nmb)
 {
 	return abs(nmb) < ACCURACY;
 }
+
+char* get_err_codes(int e_no)
+{
+	switch(e_no)
+	{
+    	case EDOM:
+    		return "Error domain. One of the parameters is infinity or not a number";
+    		break;
+    	case EFAULT:
+    		return "Bad adress. A null pointer was passed as a parameter";
+    		break;
+    	case ERANGE:
+    		return "Error range. In the process of calculations, an infinitely large number was obtained";
+    		break;
+	}
+}

@@ -27,18 +27,8 @@ int main()
     int quantity_of_solutions = solveQuad(a, b, c, solutions);
     if (quantity_of_solutions == SOL_ERR)
     {
-    	switch(errno)
-		{
-    		case EDOM:
-    			printf("Error domain");
-    			break;
-    		case EFAULT:
-    			printf("Bad adress");
-    			break;
-    		case ERANGE:
-    			printf("Error range");
-    			break;
-		}
+    	char *error_code = get_err_codes(errno);
+    	printf(error_code);
 	}
 	
     output(quantity_of_solutions, solutions [0], solutions [1]);
