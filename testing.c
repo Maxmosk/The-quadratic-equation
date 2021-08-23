@@ -8,7 +8,7 @@
 #define INF_SOLS -1
 #define SOL_ERR -2
 #define ACCURACY 0.001
-#define bool int
+#define bool char
 #define NaN sqrt(-1)
 #define INF 1.0/0.0
 #define Q_OF_TESTS 8
@@ -41,7 +41,7 @@ void test_of_sol(struct sol_testing_data examp)
 	{
 		switch(quantity_of_solutions)
 		{
-			case -2:
+			case SOL_ERR:
 				if ( errno == examp.errcode )
     				return;
     			printf("Input\na: %f\nb: %f\nc: %f\nOutput\nQoS: %d\nerrcode: %d\n\n",

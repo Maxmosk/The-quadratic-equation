@@ -6,7 +6,7 @@
 #define INF_SOLS -1
 #define SOL_ERR -2
 #define ACCURACY 0.001
-#define bool int
+#define bool char
 #define NaN sqrt(-1)
 
 int main()
