@@ -13,14 +13,14 @@ void output(int QoS, float sol_1, float sol_2);
 @brief The function for finding the solutions of a quadratic equation
 @detailed This function solves a quadratic equation by coefficients using a discriminant, writes the solutions to an array passed by a pointer and returns the number of solutions found
 @param a,  b, ccoefficients of the quadratic equation in descending order of degree
-@param *sol pointer to an array for solutions
+@param *sol_1, *sol_2 pointers to variables for solutions
 @return Returns the number of solutions
 @note If the number of solutions is infinite, it returns -1
 @noet EDOM is error domain
 @note EFAULT is error of bad adress 
 @note ERANGE is error of result out of range
 */
-int solveQuad(float a, float b, float c, float sol[2]);
+int solveQuad(float a, float b, float c, float *sol_1, float *sol_2);
 
 /*
 @brief This function checks whether the number is zero
@@ -36,6 +36,18 @@ int isZero(float nmb);
 @return Text string with description of error
 */
 char* get_err_codes(int e_no);
+
+/*
+@brief This is an enumeration for the return codes of solveQuad function
+*/
+enum sol_out
+{
+	SOL_ERR = -2,
+	INF_SOLS = -1,
+	ZERO_SOL = 0,
+	ONE_SOL = 1,
+	TWO_SOL = 2,
+};
 
 #endif
 
