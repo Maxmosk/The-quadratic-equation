@@ -40,8 +40,8 @@ void output(int QoS, float sol_1, float sol_2)
 int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
 {
     // checking the pointer for a null pointer
-    assert( !sol_1 && !sol_2 );
-    if (! (sol_1 != NULL) && (sol_2 != NULL))
+    assert( !(!sol_1 && !sol_2) );
+    if ( (!sol_1 && !sol_2) )
     {
         errno = EFAULT;
         return SOL_ERR;
