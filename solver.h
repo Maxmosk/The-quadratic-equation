@@ -42,11 +42,11 @@ char* get_err_codes(int e_no);
 */
 enum sol_out
 {
-	SOL_ERR = -2,
-	INF_SOLS = -1,
-	ZERO_SOL = 0,
-	ONE_SOL = 1,
-	TWO_SOL = 2,
+    SOL_ERR = -2,
+    INF_SOLS = -1,
+    ZERO_SOL = 0,
+    ONE_SOL = 1,
+    TWO_SOL = 2,
 };
 
 #endif

@@ -1,3 +1,7 @@
+/*
+@file Designed for testing the solveQuad function
+*/
+
 #include <stdio.h>
 #include <math.h>
 #define NDEBUG
@@ -77,15 +81,15 @@ int main()
 {
     const struct sol_testing_data tests[] =
     {
-        {1, 2, 1, ONE_SOL, -1, NAN, 0}, // 1 solution quad
-        {1, 4, 3, TWO_SOL, -3, -1, 0}, // 2 solutions quad
-        {1, 1, 1, ZERO_SOL, NAN, NAN, 0}, // 0 silutions quad
-        {0, 0, 0, INF_SOLS, NAN, NAN, 0}, // inf solutions line
-        {0, 1, 1, ONE_SOL, -1, NAN, 0}, // 1 solution line
-        {0, 0, 1, ZERO_SOL, NAN, NAN, 0}, // 0 solutions line
-        {1, FLT_MAX, 1, SOL_ERR, NAN, NAN, ERANGE}, // inf ib D
-        {INFINITY, 1, 1, SOL_ERR, NAN, NAN, EDOM} // inf error
+        {1       , 2      , 1, ONE_SOL , -1 , NAN, 0     }, // 1 solution quad
+        {1       , 4      , 3, TWO_SOL , -3 , -1 , 0     }, // 2 solutions quad
+        {1       , 1      , 1, ZERO_SOL, NAN, NAN, 0     }, // 0 silutions quad
+        {0       , 0      , 0, INF_SOLS, NAN, NAN, 0     }, // inf solutions line
+        {0       , 1      , 1, ONE_SOL , -1 , NAN, 0     }, // 1 solution line
+        {0       , 0      , 1, ZERO_SOL, NAN, NAN, 0     }, // 0 solutions line
+        {1       , FLT_MAX, 1, SOL_ERR , NAN, NAN, ERANGE}, // inf ib D
+        {INFINITY, 1      , 1, SOL_ERR , NAN, NAN, EDOM  } // inf error
     };
-    for (int i = 0; i < sizeof(tests)/sizeof(struct sol_testing_data); i+=1)
+    for (int i = 0; i < sizeof(tests)/sizeof(struct sol_testing_data); i++)
         test_of_sol(tests[i]);
 }

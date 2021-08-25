@@ -8,6 +8,11 @@
 
 const float ACCURACY = 0.001;
 
+int isZero(float nmb)
+{
+    return fabs(nmb) < ACCURACY;
+}
+
 void output(int QoS, float sol_1, float sol_2)
 {
     switch(QoS)
@@ -35,12 +40,15 @@ void output(int QoS, float sol_1, float sol_2)
 int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
 {
     // checking the pointer for a null pointer
-    assert( (sol_1 != NULL) && (sol_2 != NULL) );
+    assert( !sol_1 && !sol_2 );
     if (! (sol_1 != NULL) && (sol_2 != NULL))
     {
         errno = EFAULT;
         return SOL_ERR;
     }
+    
+    *sol_1 = NAN;
+    *sol_2 = NAN;
     
     bool corr_data = ( isfinite(a) && isfinite(b) && isfinite(c) );
     assert(corr_data);
@@ -63,8 +71,27 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
         else
             return ZERO_SOL;
     }
+    
     // solving a quadratic equation with a discriminant
-    float D = b*b - 4*a*c;
+    
+    float b_sq = b*b;
+    bool corr_b_sq = isfinite(b_sq);
+    assert(corr_b_sq);
+    if (! corr_b_sq)
+    {
+        errno = ERANGE;
+        return SOL_ERR;
+    }
+    float ac = -4*a*c;
+    bool corr_b_ac = isfinite(ac);
+    assert(corr_b_ac);
+    if (! corr_b_ac)
+    {
+        errno = ERANGE;
+        return SOL_ERR;
+    }
+    
+    float D = b_sq + ac;
     
     bool corrD = isfinite(D);
     assert(corrD);
@@ -88,11 +115,6 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
         *sol_2 = (-b + sD) / (2*a);
         return TWO_SOL;
     }
-}
-
-int isZero(float nmb)
-{
-    return abs(nmb) < ACCURACY;
 }
 
 char* get_err_codes(int e_no)
