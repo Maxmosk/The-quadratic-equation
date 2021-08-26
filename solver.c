@@ -1,43 +1,79 @@
-#include <stdio.h>
-#include <math.h>
 #define NDEBUG
 #include <assert.h>
 #include <errno.h>
+#include <math.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "solver.h"
 
-const float ACCURACY = 0.001;
+// accuracy to compare numbers
+static const float ACCURACY = 0.001;
 
-int isZero(float nmb)
+int is_zero (float nmb)
 {
     return fabs(nmb) < ACCURACY;
 }
 
-void output(int QoS, float sol_1, float sol_2)
+void output (int status, float sol_1, float sol_2) // naming
 {
-    switch(QoS)
+    switch(status)
     {
         case ZERO_SOL:
             printf("No solutions");
             break;
+            
         case ONE_SOL:
             printf("%f", sol_1);
             break;
+            
         case TWO_SOL:
-            printf("%f\n%f", sol_1, sol_2);
+            printf("%f %f", sol_1, sol_2);
             break;
+            
         case INF_SOLS:
             printf("All real numbers");
             break;
             
         default:
-            printf("Unknown error with the code %d", QoS);
+            printf("Unknown error with the code %d", status);
         
     }
     
 }
 
-int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
+int solve_linear(float k, float b, float *sol)
+{
+    // checking the pointer for a null pointer
+    assert(sol);
+    if (!sol)
+    {
+        errno = EFAULT;
+        return SOL_ERR;
+    }
+    
+    bool corr_data = ( isfinite(k) && isfinite(b) );
+    
+    assert(corr_data);
+    if (!corr_data)
+    {
+        errno = EDOM;
+        return SOL_ERR;
+    }
+    
+    if (!is_zero(k))
+        {
+            *sol = -b/k;
+            return ONE_SOL;
+        }
+        
+        else if (is_zero(b) && is_zero(k))
+            return INF_SOLS;
+        
+        else
+            return ZERO_SOL;
+}
+
+int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
 {
     // checking the pointer for a null pointer
     assert( !(!sol_1 && !sol_2) );
@@ -51,39 +87,35 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
     *sol_2 = NAN;
     
     bool corr_data = ( isfinite(a) && isfinite(b) && isfinite(c) );
+    
     assert(corr_data);
-    if (! corr_data)
+    if (!corr_data)
     {
         errno = EDOM;
         return SOL_ERR;
     }
     
     // in the case of a linear equation
-    if (isZero(a))
+    if (is_zero(a))
     {
-        if (!isZero(b))
-        {
-            *sol_1 = -c/b;
-            return ONE_SOL;
-        }
-        else if (isZero(c) && isZero(b))
-            return INF_SOLS;
-        else
-            return ZERO_SOL;
+        return solve_linear(b, c, sol_1);
     }
     
     // solving a quadratic equation with a discriminant
     
     float b_sq = b*b;
     bool corr_b_sq = isfinite(b_sq);
+    
     assert(corr_b_sq);
-    if (! corr_b_sq)
+    if (!corr_b_sq)
     {
         errno = ERANGE;
         return SOL_ERR;
     }
+    
     float ac = -4*a*c;
     bool corr_b_ac = isfinite(ac);
+    
     assert(corr_b_ac);
     if (! corr_b_ac)
     {
@@ -92,8 +124,8 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
     }
     
     float D = b_sq + ac;
-    
     bool corrD = isfinite(D);
+    
     assert(corrD);
     if (! corrD)
     {
@@ -103,7 +135,7 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
     
     if (D < 0)
         return ZERO_SOL;
-    else if (isZero(D))
+    else if (is_zero(D))
     {
         *sol_1 = -b / (2*a);
         return ONE_SOL;
@@ -117,16 +149,18 @@ int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)
     }
 }
 
-char* get_err_codes(int e_no)
+char* get_err_codes (int e_no)
 {
     switch(e_no)
     {
         case EDOM:
             return "Error domain. One of the parameters is infinity or not a number";
             break;
+            
         case EFAULT:
             return "Bad adress. A null pointer was passed as a parameter";
             break;
+            
         case ERANGE:
             return "Error range. In the process of calculations, an infinitely large number was obtained";
             break;
