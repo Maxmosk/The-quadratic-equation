@@ -22,13 +22,6 @@ struct sol_testing_data
 
 /*
 @brief Function for testing
-@detailed This function calls the function under test with the passed data and outputs information about the error if there is one
-@param examp is structure with sample input and output
-*/
-static void test_of_sol(struct sol_testing_data examp);
-
-/*
-@brief Function for testing
 */
 int test_func();
 

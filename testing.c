@@ -7,6 +7,11 @@
 #include "solver.h"
 #include "testing.h"
 
+/*
+@brief Function for testing
+@detailed This function calls the function under test with the passed data and outputs information about the error if there is one
+@param examp is structure with sample input and output
+*/
 static void test_of_sol(struct sol_testing_data examp)
 {
     float solutions[2] = {NAN, NAN}; // array for solutions
