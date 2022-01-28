@@ -36,7 +36,7 @@ void output (int status, double sol_1, double sol_2) // naming
             break;
             
         default:
-            printf("Unknown error with the code %d", status);
+            break;
         
     }
     
