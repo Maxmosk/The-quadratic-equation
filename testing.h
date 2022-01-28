@@ -14,15 +14,15 @@
 */
 struct sol_testing_data
 {
-    float a, b, c;
+    double a, b, c;
     enum sol_out result;
-    float sol_1, sol_2;
+    double sol_1, sol_2;
     int errcode;
 };
 
 /*
 @brief Function for testing
 */
-int test_func();
+int test_func(void);
 
 #endif

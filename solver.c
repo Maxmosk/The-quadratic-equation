@@ -2,19 +2,20 @@
 #include <assert.h>
 #include <errno.h>
 #include <math.h>
+#include <float.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include "solver.h"
 
 // accuracy to compare numbers
-static const float ACCURACY = 0.001;
+static const double ACCURACY = 0.001f;
 
-int is_zero (float nmb)
+int is_zero (double nmb)
 {
     return fabs(nmb) < ACCURACY;
 }
 
-void output (int status, float sol_1, float sol_2) // naming
+void output (int status, double sol_1, double sol_2) // naming
 {
     switch(status)
     {
@@ -23,11 +24,11 @@ void output (int status, float sol_1, float sol_2) // naming
             break;
             
         case ONE_SOL:
-            printf("%f", sol_1);
+            printf("%.3lf\n", sol_1);
             break;
             
         case TWO_SOL:
-            printf("%f %f", sol_1, sol_2);
+            printf("%.3lf %.3lf\n", sol_1, sol_2);
             break;
             
         case INF_SOLS:
@@ -41,7 +42,7 @@ void output (int status, float sol_1, float sol_2) // naming
     
 }
 
-int solve_linear(float k, float b, float *sol)
+int solve_linear(double k, double b, double *sol)
 {
     // checking the pointer for a null pointer
     assert(sol);
@@ -73,7 +74,7 @@ int solve_linear(float k, float b, float *sol)
             return ZERO_SOL;
 }
 
-int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
+int solve_quad (double a, double b, double c, double *sol_1, double *sol_2)
 {
     // checking the pointer for a null pointer
     assert( !(!sol_1 && !sol_2) );
@@ -103,7 +104,7 @@ int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
     
     // solving a quadratic equation with a discriminant
     
-    float b_sq = b*b;
+    double b_sq = b*b;
     bool corr_b_sq = isfinite(b_sq);
     
     assert(corr_b_sq);
@@ -113,7 +114,7 @@ int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
         return SOL_ERR;
     }
     
-    float ac = -4*a*c;
+    double ac = -4*a*c;
     bool corr_b_ac = isfinite(ac);
     
     assert(corr_b_ac);
@@ -123,7 +124,7 @@ int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
         return SOL_ERR;
     }
     
-    float D = b_sq + ac;
+    double D = b_sq + ac;
     bool corrD = isfinite(D);
     
     assert(corrD);
@@ -142,14 +143,14 @@ int solve_quad (float a, float b, float c, float *sol_1, float *sol_2)
     }
     else
     {
-        float sD = sqrtf(D);
+        double sD = sqrt(D);
         *sol_1 = (-b - sD) / (2*a);
         *sol_2 = (-b + sD) / (2*a);
         return TWO_SOL;
     }
 }
 
-char* get_err_codes (int e_no)
+const char *get_err_codes (int e_no)
 {
     switch(e_no)
     {
@@ -169,3 +170,4 @@ char* get_err_codes (int e_no)
             return "Unknown error";
     }
 }
+

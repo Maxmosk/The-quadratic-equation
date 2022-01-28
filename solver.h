@@ -12,7 +12,7 @@
 @param sol_1 the first output solution
 @param sol_2 the second output solution
 */
-void output (int QoS, float sol_1, float sol_2);
+void output (int QoS, double sol_1, double sol_2);
 
 /*
 @brief The function for finding the solutions of a quadratic equation
@@ -25,7 +25,7 @@ void output (int QoS, float sol_1, float sol_2);
 @note EFAULT is error of bad adress 
 @note ERANGE is error of result out of range
 */
-int solve_quad (float a, float b, float c, float *sol_1, float *sol_2);
+int solve_quad (double a, double b, double c, double *sol_1, double *sol_2);
 
 /*
 @brief This function checks whether the number is zero
@@ -33,14 +33,14 @@ int solve_quad (float a, float b, float c, float *sol_1, float *sol_2);
 @return True if the number is zero, false in other cases
 @note Any number less than the ACCURACY is considered zero
 */
-int is_zero (float nmb);
+int is_zero (double nmb);
 
 /*
 @brief This function return description of error
 @param e_no is value of errno
 @return Text string with description of error
 */
-char* get_err_codes (int e_no);
+const char *get_err_codes (int e_no);
 
 /*
 @drief The function for finding the solutions of a linear equation
@@ -48,7 +48,7 @@ char* get_err_codes (int e_no);
 @note If the number of solutions is infinite, it returns -1
 @return Returns the number of solutions or error code
 */
-int solve_linear(float k, float b, float *sol);
+int solve_linear(double k, double b, double *sol);
 
 /*
 @brief This is an enumeration for the return codes of solve_quad function
