@@ -37,5 +37,5 @@ main_t.o: main.c
 
 
 clean:
-	rm -rf *.o *.i *.dump *.s testprog quad
+	rm -rf *.o *.i *.s testprog quad
 
