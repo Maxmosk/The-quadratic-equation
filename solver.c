@@ -20,7 +20,7 @@ void output (int status, double sol_1, double sol_2) // naming
     switch(status)
     {
         case ZERO_SOL:
-            printf("No solutions");
+            printf("No solutions\n");
             break;
             
         case ONE_SOL:
@@ -32,7 +32,7 @@ void output (int status, double sol_1, double sol_2) // naming
             break;
             
         case INF_SOLS:
-            printf("All real numbers");
+            printf("All real numbers\n");
             break;
             
         default:
