@@ -2,7 +2,7 @@
 @mainpage The quadratic equation
 
 This project consists of the main file main.c and external files:
-1. Filt with functions for solving a quadratic equation (solve.h, solve.c);
+1. File with functions for solving a quadratic equation (solve.h, solve.c);
 2. File with functions for testing functions for solving (testing.h, testing.c)
 */
 
