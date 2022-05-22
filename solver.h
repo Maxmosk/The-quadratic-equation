@@ -5,6 +5,20 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
+
+/*
+@brief This is an enumeration for the return codes of solve_quad function
+*/
+typedef enum solver_codes
+{
+    SOL_ERR = -2,
+    INF_SOLS = -1,
+    ZERO_SOL = 0,
+    ONE_SOL = 1,
+    TWO_SOL = 2,
+} solver_code;
+
+
 /*
 @brief The function for deriving solutions of a quadratic equation
 @detailed This function gets the number of solutions and up to two solutions, the output is "No solutions"
@@ -25,7 +39,7 @@ void output (int QoS, double sol_1, double sol_2);
 @note EFAULT is error of bad adress 
 @note ERANGE is error of result out of range
 */
-int solve_quad (double a, double b, double c, double *sol_1, double *sol_2);
+solver_code solve_quad (double a, double b, double c, double *sol_1, double *sol_2);
 
 /*
 @brief This function checks whether the number is zero
@@ -48,19 +62,8 @@ const char *get_err_codes (int e_no);
 @note If the number of solutions is infinite, it returns -1
 @return Returns the number of solutions or error code
 */
-int solve_linear(double k, double b, double *sol);
+solver_code solve_linear(double k, double b, double *sol);
 
-/*
-@brief This is an enumeration for the return codes of solve_quad function
-*/
-enum sol_out
-{
-    SOL_ERR = -2,
-    INF_SOLS = -1,
-    ZERO_SOL = 0,
-    ONE_SOL = 1,
-    TWO_SOL = 2,
-};
 
 #endif
 

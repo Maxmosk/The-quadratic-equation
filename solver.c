@@ -42,7 +42,7 @@ void output (int status, double sol_1, double sol_2) // naming
     
 }
 
-int solve_linear(double k, double b, double *sol)
+solver_code solve_linear(double k, double b, double *sol)
 {
     // checking the pointer for a null pointer
     assert(sol);
@@ -74,7 +74,7 @@ int solve_linear(double k, double b, double *sol)
             return ZERO_SOL;
 }
 
-int solve_quad (double a, double b, double c, double *sol_1, double *sol_2)
+solver_code solve_quad (double a, double b, double c, double *sol_1, double *sol_2)
 {
     // checking the pointer for a null pointer
     assert( !(!sol_1 && !sol_2) );

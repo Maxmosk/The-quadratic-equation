@@ -15,7 +15,7 @@
 struct sol_testing_data
 {
     double a, b, c;
-    enum sol_out result;
+    solver_code result;
     double sol_1, sol_2;
     int errcode;
 };

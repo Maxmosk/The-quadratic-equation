@@ -16,7 +16,7 @@ static void test_of_sol(struct sol_testing_data examp)
 {
     double solutions[2] = {NAN, NAN}; // array for solutions
     errno = 0;
-    enum sol_out quantity_of_solutions = solve_quad(examp.a, examp.b, examp.c, &solutions[0], &solutions[1]);
+    solver_code quantity_of_solutions = solve_quad(examp.a, examp.b, examp.c, &solutions[0], &solutions[1]);
     
     if (quantity_of_solutions == examp.result)
     {
