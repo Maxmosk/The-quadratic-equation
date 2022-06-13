@@ -26,7 +26,7 @@ typedef enum solver_codes
 @param sol_1 the first output solution
 @param sol_2 the second output solution
 */
-void output (int QoS, double sol_1, double sol_2);
+void print_solution (int QoS, double sol_1, double sol_2);
 
 /*
 @brief The function for finding the solutions of a quadratic equation

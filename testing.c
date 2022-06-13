@@ -14,7 +14,7 @@
 */
 static void test_of_sol(struct sol_testing_data examp)
 {
-    double solutions[2] = {NAN, NAN}; // array for solutions
+    double solutions[2] = {NAN, NAN}; /* array for solutions */
     errno = 0;
     solver_code quantity_of_solutions = solve_quad(examp.a, examp.b, examp.c, &solutions[0], &solutions[1]);
     
@@ -76,14 +76,14 @@ int test_func(void)
 {
     const struct sol_testing_data tests[] =
     {
-        {1       , 2      , 1, ONE_SOL , -1 , NAN, 0     }, // 1 solution quad
-        {1       , 4      , 3, TWO_SOL , -3 , -1 , 0     }, // 2 solutions quad
-        {1       , 1      , 1, ZERO_SOL, NAN, NAN, 0     }, // 0 silutions quad
-        {0       , 0      , 0, INF_SOLS, NAN, NAN, 0     }, // inf solutions line
-        {0       , 1      , 1, ONE_SOL , -1 , NAN, 0     }, // 1 solution line
-        {0       , 0      , 1, ZERO_SOL, NAN, NAN, 0     }, // 0 solutions line
-        {1       , DBL_MAX, 1, SOL_ERR , NAN, NAN, ERANGE}, // inf ib D
-        {INFINITY, 1      , 1, SOL_ERR , NAN, NAN, EDOM  } // inf error
+        {1       , 2      , 1, ONE_SOL , -1 , NAN, 0     }, /* 1 solution quad */
+        {1       , 4      , 3, TWO_SOL , -3 , -1 , 0     }, /* 2 solutions quad */
+        {1       , 1      , 1, ZERO_SOL, NAN, NAN, 0     }, /* 0 silutions quad */
+        {0       , 0      , 0, INF_SOLS, NAN, NAN, 0     }, /* inf solutions line */
+        {0       , 1      , 1, ONE_SOL , -1 , NAN, 0     }, /* 1 solution line */
+        {0       , 0      , 1, ZERO_SOL, NAN, NAN, 0     }, /* 0 solutions line */
+        {1       , DBL_MAX, 1, SOL_ERR , NAN, NAN, ERANGE}, /* inf in D */
+        {INFINITY, 1      , 1, SOL_ERR , NAN, NAN, EDOM  }  /* inf error */
     };
     
     for (size_t i = 0; i < sizeof(tests)/sizeof(struct sol_testing_data); i++)
@@ -91,3 +91,4 @@ int test_func(void)
     
     return 0;
 }
+
