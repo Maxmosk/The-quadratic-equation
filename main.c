@@ -36,7 +36,7 @@ int main(void)
     
     double solutions [2] = {NAN, NAN}; /* array for solutions */
     errno = 0;
-    solver_code quantity_of_solutions = solve_quad(a, b, c, &solutions[0], &solutions[1]);
+    solver_code quantity_of_solutions = solve_quad (a, b, c, &solutions[0], &solutions[1]);
     if (quantity_of_solutions == SOL_ERR)
     {
         printf("%s", get_err_codes(errno));
