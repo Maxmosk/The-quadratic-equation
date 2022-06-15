@@ -5,9 +5,9 @@
 ## Сборка
 Выполните `make` в директории проекта для сборки решения.  
 ## Функции
-`int isZero(float nmb)` проверяет, является ли переданное число нулевым;  
+`int is_zero(float nmb)` проверяет, является ли переданное число нулевым;  
 `void print_solution(int QoS, float sol_1, float sol_2)` выводит переданные решения;  
-`int solveQuad(float a, float b, float c, float *sol_1, float *sol_2)` решает квадратное уравнение;  
+`int solve_quad(float a, float b, float c, float *sol_1, float *sol_2)` решает квадратное уравнение;  
 `char* get_err_codes(int e_no)` определяет ошибку по коду.
 ## Ввод
 Вводится три вещественных числа, являющихся коэффициентами уравнения вида `a*x^2 + b*x + c = 0`.
