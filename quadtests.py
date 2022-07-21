@@ -95,7 +95,6 @@ def run_test(test_n=None):
     low_coeff = -high_coeff
     mode_coeff = 0
     accuracy = 0.001
-
    
     a, b, c = generate_equation(3, low_coeff, high_coeff, mode_coeff)
     
@@ -107,11 +106,12 @@ def run_test(test_n=None):
             and is_equal(sol_exe, sol_web, accuracy):
         print(f"TEST {test_n} OK" if test_n != None else "TEST OK")
         return True
+
     else:
-        print(a, b, c, sol_sym, sol_exe)
+        print(a, b, c, sol_sym, sol_exe, sol_web)
         return False
 
 
-for i in range(1, 11):
+for i in range(1, 10 + 1):
     run_test(i)
 
