@@ -4,8 +4,9 @@ import subprocess
 import random
 
 
-def generate_equation(n):
-    return map(float, [random.triangular(low_coeff, high_coeff, mode_coeff) for i in range(n)])
+def generate_equation(n, low, high, mode):
+    return map(float,
+            [random.triangular(low, high, mode) for i in range(n)])
 
 def solve_symbolic(a, b, c):
     x = sympy.var('x')
@@ -19,7 +20,7 @@ def solve_symbolic(a, b, c):
             have_roots = False
 
     if have_roots:
-        return map(float, solution)
+        return list(map(str, solution))
     else:
         return None
 
@@ -29,28 +30,54 @@ def solve_execuatble(a, b, c, solver):
         input=f"{a} {b} {c}",
         text=True
         )
+    
+    if solver_output.split('\n')[1][0].isdigit() or solver_output.split('\n')[1][0] == '-':
+        return list(solver_output.split('\n')[1].split())
+    else:
+        return None
 
-    return solver_output.split('\n')[1]
+def float_equal(x_1, x_2, accuracy):
+    return abs(float(x_1) - float(x_2)) < accuracy
+
+def is_equal(sol_1, sol_2, accuracy):
+    if sol_1 == sol_2 and sol_1 == None:
+        return True
+
+    elif len(sol_1) == len(sol_2):
+        if len(sol_1) == 1:
+            return float_equal(sol_1[0], sol_2[0], accuracy)
+        elif len(sol_1) == 2:
+            return (float_equal(sol_1[0], sol_2[0], accuracy) and   \
+                    float_equal(sol_1[1], sol_2[1], accuracy)) or   \
+                    (float_equal(sol_1[1], sol_2[0], accuracy) and  \
+                    float_equal(sol_1[0], sol_2[1], accuracy))
+
+    else:
+        for x in sol_1:
+            for y in sol_2:
+                if float_equal(x, y, accuracy):
+                    return True
+        
+        return False
+
+def run_test(test_n):
+    high_coeff = 10005000
+    low_coeff = -high_coeff
+    mode_coeff = 100500
+    accuracy = 0.001
+    
+    
+    a, b, c = generate_equation(3, low_coeff, high_coeff, mode_coeff)
+    
+    sol_sym = solve_symbolic(a, b, c)
+    sol_exe = solve_execuatble(a, b, c, "./quad")
+    
+    if is_equal(sol_sym, sol_exe, accuracy):
+        print("TEST OK")
+    else:
+        print(a, b, c, sol_sym, sol_exe)
 
 
-high_coeff = 100500
-low_coeff = -high_coeff
-mode_coeff = 1050
-accuracy = 0.001
-
-
-a, b, c = generate_equation(3)
-print(a, b, c)
-
-res = solve_symbolic(a, b, c)
-if res != None:
-    for root in res:
-        print(root, end=' ')
-    print('')
-else:
-    print("No solutions")
-
-
-print(solve_execuatble(a, b, c, "./quad"))
-
+for i in range(1, 51):
+    run_test(i)
 
