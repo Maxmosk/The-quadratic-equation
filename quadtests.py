@@ -3,6 +3,7 @@ import sympy
 import subprocess
 import random
 import wolframalpha
+import os.path
 from math import sqrt as sqrt
 
 
@@ -30,6 +31,8 @@ def solve_symbolic(a, b, c):
 
 
 def solve_execuatble(a, b, c, solver):
+    assert os.path.exists(solver), f'*** ERROR! File "{solver}" does not exists!!! ***'
+
     solver_output = subprocess.check_output(
         solver,
         input=f"{a} {b} {c}",
