@@ -17,7 +17,14 @@ x = sympy.var('x')
 f = a*x**2 + b*x + c
 
 solution = sympy.solve(f, x)
-sympy.pprint(solution)
+
+have_roots = True
+for root in solution:
+    if not root.is_real:
+        have_roots = False
+
+if have_roots:
+    sympy.pprint(solution)
 
 solver_output = subprocess.check_output(
         "./quad",
