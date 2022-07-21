@@ -60,7 +60,7 @@ def is_equal(sol_1, sol_2, accuracy):
         
         return False
 
-def run_test(test_n):
+def run_test(test_n=None):
     high_coeff = 10005000
     low_coeff = -high_coeff
     mode_coeff = 100500
@@ -73,7 +73,7 @@ def run_test(test_n):
     sol_exe = solve_execuatble(a, b, c, "./quad")
     
     if is_equal(sol_sym, sol_exe, accuracy):
-        print("TEST OK")
+        print(f"TEST {test_n} OK" if test_n != None else "TEST OK")
     else:
         print(a, b, c, sol_sym, sol_exe)
 
