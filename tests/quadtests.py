@@ -4,6 +4,7 @@ import subprocess
 import random
 import wolframalpha
 import os.path
+import sys
 from math import sqrt as sqrt
 
 
@@ -93,7 +94,7 @@ def solve_web(a, b, c):
         return None
 
 
-def run_test(test_n=None):
+def run_test(test_file, test_n=None):
     high_coeff = 2**400
     low_coeff = -high_coeff
     mode_coeff = 0
@@ -102,7 +103,7 @@ def run_test(test_n=None):
     a, b, c = generate_equation(3, low_coeff, high_coeff, mode_coeff)
     
     sol_sym = solve_symbolic(a, b, c)
-    sol_exe = solve_execuatble(a, b, c, "./quad")
+    sol_exe = solve_execuatble(a, b, c, test_file)
     sol_web = solve_web(a, b, c)
 
     if is_equal(sol_sym, sol_exe, accuracy) and is_equal(sol_sym, sol_web, accuracy) \
@@ -115,6 +116,11 @@ def run_test(test_n=None):
         return False
 
 
+if len(sys.argv) != 2:
+    print("*** ERROR IN COMMAND LINE ARGS ***")
+    exit(0)
+
+exe_file = sys.argv[1]
 for i in range(1, 25 + 1):
-    run_test(i)
+    run_test(exe_file, i)
 
