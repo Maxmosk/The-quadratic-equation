@@ -12,7 +12,7 @@
 @detailed This function calls the function under test with the passed data and outputs information about the error if there is one
 @param examp is structure with sample input and output
 */
-static void test_of_sol(struct sol_testing_data examp)
+static int test_of_sol(struct sol_testing_data examp)
 {
     double solutions[2] = {NAN, NAN}; /* array for solutions */
     errno = 0;
@@ -24,7 +24,7 @@ static void test_of_sol(struct sol_testing_data examp)
         {
             case SOL_ERR:
                 if ( errno == examp.errcode )
-                    return;
+                    return TEST_ERROR;
                     
                 printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nerrcode: %d\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.errcode);
@@ -34,7 +34,7 @@ static void test_of_sol(struct sol_testing_data examp)
                 
             case ONE_SOL:
                 if ( is_zero(examp.sol_1-solutions[0]) )
-                    return;
+                    return TEST_ERROR;
                     
                 printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.sol_1);
@@ -44,7 +44,7 @@ static void test_of_sol(struct sol_testing_data examp)
                 
             case TWO_SOL:
                 if ( is_zero(examp.sol_1-solutions[0]) && is_zero(examp.sol_2-solutions[1]) )
-                    return;
+                    return TEST_ERROR;
                     
                 printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\nsol_2: %lf\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.sol_1, examp.sol_2);
@@ -70,6 +70,9 @@ static void test_of_sol(struct sol_testing_data examp)
         printf("Real output\nQoS: %d",
                 quantity_of_solutions);
     }
+
+
+    return TEST_SUCCESS;
 }
 
 int test_func(void)
@@ -86,9 +89,12 @@ int test_func(void)
         {INFINITY, 1      , 1, SOL_ERR , NAN, NAN, EDOM  }  /* inf error */
     };
     
+    int fallen = 0;
     for (size_t i = 0; i < sizeof(tests)/sizeof(struct sol_testing_data); i++)
-        test_of_sol(tests[i]);
+    {
+        fallen += (test_of_sol(tests[i]) == TEST_ERROR);
+    }
     
-    return 0;
+    return fallen;
 }
 

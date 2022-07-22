@@ -115,6 +115,6 @@ def run_test(test_n=None):
         return False
 
 
-for i in range(1, 10 + 1):
+for i in range(1, 100 + 1):
     run_test(i)
 

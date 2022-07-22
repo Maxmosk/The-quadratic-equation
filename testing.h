@@ -20,6 +20,12 @@ struct sol_testing_data
     int errcode;
 };
 
+enum TEST_CODES
+{
+    TEST_ERROR = 0,
+    TEST_SUCCESS = 1
+};
+
 /*
 @brief Function for testing
 */

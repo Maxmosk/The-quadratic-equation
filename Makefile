@@ -6,7 +6,7 @@ include CMakefile
 CC=gcc
 #Compiler flags
 CFLAGS=$(CFLAGS_WARNINGS) $(CFLAGS_FLAGS) $(CFLAGS_SYNTAX) $(CFLAGS_DEBUG)
-LDFLAGS=-lm
+LDFLAGS=-lm $(CFLAGS_LINK)
 
 
 OBJFILES=main.o solver.o testing.o

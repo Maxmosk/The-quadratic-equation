@@ -12,6 +12,8 @@ This project consists of the main file main.c and external files:
 #include "solver.h"
 #include "testing.h"
 
+#define TESTS_ON
+
 
 int main(void)
 {
