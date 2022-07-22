@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean tests docker_tests
 
 include CMakefile
 
@@ -24,11 +24,15 @@ EXECUTABLE=$(BUILDDIR)/quad
 
 all: dir $(EXECUTABLE)
 
-tests: build_tests
+docker_tests: build_docker
 	docker run --rm -t $(DOCKERIMAGE) 
 
-build_tests: $(CIDIR)/Dockerfile
+build_docker: $(CIDIR)/Dockerfile
 	docker build -t $(DOCKERIMAGE) $(CIDIR)
+
+tests: $(EXECUTABLE)
+	sh $(TESTSDIR)/quadtests.sh $(EXECUTABLE)
+	python3 $(TESTSDIR)/quadtests.py $(EXECUTABLE)
 
 dir:
 	mkdir $(BUILDDIR)
