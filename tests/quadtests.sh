@@ -1,7 +1,7 @@
 #!/bin/sh
 I=1
 while IFS=% read -r source roots; do
-        res=$(echo $source | ./quad)
+        res=$(echo $source | $1)
         res=$(echo "$res" | tail -n +2)
         if [ x"$roots" != x"$res" ]; then
                 echo TEST $I '('$source')' FAILED: expexted "$roots", got "$res"

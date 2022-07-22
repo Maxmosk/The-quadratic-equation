@@ -12,6 +12,9 @@ LDFLAGS=-lm $(CFLAGS_LINK)
 SOURCEDIR=src/code
 HEADERDIR=src/head
 BUILDDIR=build
+TESTSDIR=tests
+CIDIR=ci-scripts
+DOCKERIMAGE=alipnetest
 SOURCES=$(wildcard src/code/*.c)
 SOURCES=$(wildcard $(SOURCEDIR)/*.c)
 HEADFILES=$(wildcard $(HEADERDIR)/*.h)
@@ -20,6 +23,12 @@ EXECUTABLE=$(BUILDDIR)/quad
 
 
 all: dir $(EXECUTABLE)
+
+tests: build_tests
+	docker run --rm -t $(DOCKERIMAGE) 
+
+build_tests: $(CIDIR)/Dockerfile
+	docker build -t $(DOCKERIMAGE) $(CIDIR)
 
 dir:
 	mkdir $(BUILDDIR)
