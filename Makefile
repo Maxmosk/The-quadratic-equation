@@ -9,19 +9,28 @@ CFLAGS=$(CFLAGS_WARNINGS) $(CFLAGS_FLAGS) $(CFLAGS_SYNTAX) $(CFLAGS_DEBUG)
 LDFLAGS=-lm $(CFLAGS_LINK)
 
 
-OBJFILES=main.o solver.o testing.o
-HEADFILES=solver.h testing.h
+SOURCEDIR=src/code
+HEADERDIR=src/head
+BUILDDIR=build
+SOURCES=$(wildcard src/code/*.c)
+SOURCES=$(wildcard $(SOURCEDIR)/*.c)
+HEADFILES=$(wildcard $(HEADERDIR)/*.h)
+OBJFILES=$(patsubst $(SOURCEDIR)/%.c,$(BUILDDIR)/%.o,$(SOURCES))
+EXECUTABLE=$(BUILDDIR)/quad
 
-all: quad
 
+all: dir $(EXECUTABLE)
 
-quad: $(OBJFILES)
+dir:
+	mkdir $(BUILDDIR)
+
+$(EXECUTABLE): $(OBJFILES)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $?
 
-%.o: %.c $(HEADFILES)
+$(OBJFILES): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.c $(HEADFILES)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 
 clean:
-	rm -rf *.o *.i *.s quad
+	rm -rf $(BUILDDIR)
 
