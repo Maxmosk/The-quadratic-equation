@@ -10,5 +10,5 @@ ENV PATH="/home/user/.local/bin:${PATH}"
 
 COPY --chown=user:user . .
 
-CMD git clone https://github.com/Maxmosk/The-quadratic-equation.git --depth 1 && cd The-quadratic-equation && sed -i 's/$(CFLAGS_FLAGS)/ /' Makefile && sed -i 's/$(CFLAGS_LINK)/ /' Makefile && make && ./quadtests.sh && ls && python3 quadtests.py && exit
+CMD git clone https://github.com/Maxmosk/The-quadratic-equation.git --depth 1 && cd The-quadratic-equation && sed -i 's/$(CFLAGS_FLAGS)/ /' Makefile && sed -i 's/$(CFLAGS_LINK)/ /' Makefile && make && ./tests/quadtests.sh && ls && ./tests/quadtests.py && exit
 
