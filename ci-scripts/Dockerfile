@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk update && apk add python3 py3-pip git make gcc libc-dev sed
+RUN apk update && apk add python3 py3-pip git make gcc libc-dev
 
 RUN adduser -D user
 USER user
