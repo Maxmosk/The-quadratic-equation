@@ -12,43 +12,43 @@
 @detailed This function calls the function under test with the passed data and outputs information about the error if there is one
 @param examp is structure with sample input and output
 */
-static int test_of_sol(struct sol_testing_data examp)
+static int test_of_sol (struct sol_testing_data examp)
 {
     double solutions[2] = {NAN, NAN}; /* array for solutions */
     errno = 0;
-    solver_code quantity_of_solutions = solve_quad(examp.a, examp.b, examp.c, &solutions[0], &solutions[1]);
+    solver_code quantity_of_solutions = solve_quad (examp.a, examp.b, examp.c, &solutions[0], &solutions[1]);
     
     if (quantity_of_solutions == examp.result)
     {
-        switch(quantity_of_solutions)
+        switch (quantity_of_solutions)
         {
             case SOL_ERR:
-                if ( errno == examp.errcode )
+                if (errno == examp.errcode)
                     return TEST_ERROR;
                     
-                printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nerrcode: %d\n\n",
+                printf ("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nerrcode: %d\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.errcode);
-                printf("Real output\nQoS: %d\nerrcode: %d\n",
+                printf ("Real output\nQoS: %d\nerrcode: %d\n",
                         quantity_of_solutions, errno);
                 break;
                 
             case ONE_SOL:
-                if ( is_zero(examp.sol_1-solutions[0]) )
+                if (is_zero (examp.sol_1-solutions[0]))
                     return TEST_ERROR;
                     
-                printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\n\n",
+                printf ("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.sol_1);
-                printf("Real output\nQoS: %d\nsol_1: %lf\n",
+                printf ("Real output\nQoS: %d\nsol_1: %lf\n",
                         quantity_of_solutions, solutions[0]);
                 break;
                 
             case TWO_SOL:
-                if ( is_zero(examp.sol_1-solutions[0]) && is_zero(examp.sol_2-solutions[1]) )
+                if (is_zero(examp.sol_1-solutions[0]) && is_zero(examp.sol_2-solutions[1]))
                     return TEST_ERROR;
                     
-                printf("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\nsol_2: %lf\n\n",
+                printf ("Input\na: %lf\nb: %lf\nc: %lf\nOutput\nQoS: %d\nsol_1: %lf\nsol_2: %lf\n\n",
                         examp.a, examp.b, examp.c, examp.result, examp.sol_1, examp.sol_2);
-                printf("Real output\nQoS: %d\nsol_1: %lf\nsol_2: %lf\n",
+                printf ("Real output\nQoS: %d\nsol_1: %lf\nsol_2: %lf\n",
                         quantity_of_solutions, solutions[0], solutions[1]);
                 break;
             
@@ -65,9 +65,9 @@ static int test_of_sol(struct sol_testing_data examp)
     
     else
     {
-        printf("Input\na: %f\nb: %f\nc: %f\nOutput\nQoS: %d\n\n",
+        printf ("Input\na: %f\nb: %f\nc: %f\nOutput\nQoS: %d\n\n",
                 examp.a, examp.b, examp.c, examp.result);
-        printf("Real output\nQoS: %d",
+        printf ("Real output\nQoS: %d",
                 quantity_of_solutions);
     }
 
@@ -75,7 +75,7 @@ static int test_of_sol(struct sol_testing_data examp)
     return TEST_SUCCESS;
 }
 
-int test_func(void)
+int test_func (void)
 {
     const struct sol_testing_data tests[] =
     {
@@ -90,9 +90,9 @@ int test_func(void)
     };
     
     int fallen = 0;
-    for (size_t i = 0; i < sizeof(tests)/sizeof(struct sol_testing_data); i++)
+    for (size_t i = 0; i < sizeof (tests)/sizeof (struct sol_testing_data); i++)
     {
-        fallen += (test_of_sol(tests[i]) == TEST_ERROR);
+        fallen += (test_of_sol (tests[i]) == TEST_ERROR);
     }
     
     return fallen;
