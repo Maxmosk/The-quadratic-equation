@@ -41,7 +41,7 @@ $(EXECUTABLE): $(OBJFILES)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $?
 
 $(OBJFILES): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.c $(HEADFILES)
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -I$(HEADERDIR) -o $@ $<
 
 
 clean:
