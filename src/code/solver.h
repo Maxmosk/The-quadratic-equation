@@ -62,7 +62,7 @@ const char *get_err_codes (int e_no);
 @note If the number of solutions is infinite, it returns -1
 @return Returns the number of solutions or error code
 */
-solver_code solve_linear(double k, double b, double *sol);
+solver_code solve_linear (double k, double b, double *sol);
 
 
 #endif

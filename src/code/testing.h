@@ -29,6 +29,7 @@ enum TEST_CODES
 /*
 @brief Function for testing
 */
-int test_func(void);
+int test_func (void);
 
 #endif
+
